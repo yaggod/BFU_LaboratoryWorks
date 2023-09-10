@@ -54,18 +54,6 @@ namespace LaboratoryWork_1
 
         }
 
-        private static char getOppositeBracket(char character) 
-        {
-            foreach(var bracketsPaIr in _bracketsPairs) 
-            {
-                if(bracketsPaIr.Item1 == character)
-                    return bracketsPaIr.Item2;
-                else if(bracketsPaIr.Item2 == character)
-                    return bracketsPaIr.Item1;
-            }
-            throw new ArgumentException($"{nameof(character)} was not a bracket");
-        }
-
         private  static bool isBracketsPair(char firstChar, char secondChar)
         {
             try
@@ -76,6 +64,18 @@ namespace LaboratoryWork_1
             {
                 return false;
             }
+        }
+
+        private static char getOppositeBracket(char character)
+        {
+            foreach (var bracketsPaIr in _bracketsPairs)
+            {
+                if (bracketsPaIr.Item1 == character)
+                    return bracketsPaIr.Item2;
+                else if (bracketsPaIr.Item2 == character)
+                    return bracketsPaIr.Item1;
+            }
+            throw new ArgumentException($"{nameof(character)} was not a bracket");
         }
 
     }
