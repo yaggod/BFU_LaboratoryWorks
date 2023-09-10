@@ -4,7 +4,12 @@
     {
         static void Main(string[] args)
         {
-            Console.WriteLine("Hello, World!");
+            Console.WriteLine("Введите строку: ");
+            string expression = Console.ReadLine() ?? "";
+            bool isValidExpression = ExpressionValidator.IsValidExpression(expression);
+            Console.WriteLine("Введенная строка " + (isValidExpression ? "правильная" : "неправильная"));
+
+            Console.ReadKey();
         }
     }
 }
