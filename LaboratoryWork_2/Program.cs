@@ -10,22 +10,18 @@ namespace LaboratoryWork_2
         private const string thirdInvalidExpression = "(1 + 2 * 3 / 5 - 2 * 7 - 2 / 9) * (1 * 35 * (-215 / 0)))=";
         static void Main(string[] args)
         {
-            while (true)
+            try
             {
-                try
-                {
-                    Console.WriteLine("Введите вашу строку: ");
-                    string inputString = Console.ReadLine();
+                Console.WriteLine("Введите вашу строку: ");
+                string inputString = Console.ReadLine();
 
-                    ExpressionEvaluator evaluator = new(inputString);
-                    float result = evaluator.Result;
-                    Console.WriteLine(result);
-                }
-                catch (Exception ex)
-                {
-                    Console.WriteLine("Формат строки неправильный");
-                }
-
+                ExpressionEvaluator evaluator = new(inputString);
+                float result = evaluator.Result;
+                Console.WriteLine(result);
+            }
+            catch (Exception ex)
+            {
+                Console.WriteLine("Формат строки неправильный");
             }
         }
     }
