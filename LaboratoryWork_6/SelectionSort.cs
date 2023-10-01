@@ -19,9 +19,7 @@ namespace LaboratoryWork_6
                         minimalValueIndex = j;
                 }
 
-                T temp = values[i];
-                values[i] = values[minimalValueIndex];
-                values[minimalValueIndex] = temp;
+                (values[minimalValueIndex], values[i]) = (values[i], values[minimalValueIndex]);
             }
         }
     }

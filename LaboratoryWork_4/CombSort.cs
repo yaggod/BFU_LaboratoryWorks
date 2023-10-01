@@ -23,9 +23,7 @@ namespace LaboratoryWork_4
                 {
                     if (values[i].CompareTo(values[j]) > 0)
                     {
-                        T  temp = values[i];
-                        values[i] = values[j];
-                        values[j] = temp;
+                        (values[j], values[i]) = (values[i], values[j]);
                     }
                     i++;
                     j = i + step;
