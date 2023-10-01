@@ -14,13 +14,15 @@ namespace LaboratoryWork_5
             {
                 T currentValue = values[i];
                 int j;
-                for(j = i - 1; j >= 0 && values[j].CompareTo(currentValue) > 0; j--)
+                for(j = i - 1; j >= 0; j--)
                 {
-                    if (currentValue.CompareTo(values[j]) < 0)
+                    if (currentValue.CompareTo(values[j]) > 0)
                     {
-                        values[j + 1] = values[j];
+                        break;
                     }
+                    values[j + 1] = values[j];
                 }
+
                 values[j+1] = currentValue;
                 
             }
