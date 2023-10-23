@@ -39,17 +39,17 @@ namespace LaboratoryWork_8
             int digitsCount = GetMaxDigitsCount(array, sign);
             for (int currentDigit = 0; currentDigit < digitsCount; currentDigit++)
             {
-                result = GetSortedByCounting(result, SortingBase, currentDigit, sign);
+                result = GetSortedByCounting(result, currentDigit, sign);
             }
 
           
             return result;
         }
-        private static int[] GetSortedByCounting(int[] array, int sortingBase, int position, int sign = 1)
+        private static int[] GetSortedByCounting(int[] array, int position, int sign = 1)
         {
             int[] result = new int[array.Length];
 
-            int[] valuesCount = new int[sortingBase];
+            int[] valuesCount = new int[SortingBase];
             foreach(int value in array)
             {
                 int digit = GetDigitFromTheEnd(sign * value, position);
