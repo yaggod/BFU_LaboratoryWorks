@@ -6,10 +6,11 @@
         {
             Random random = new Random();
 
-            var arrayToSort = Enumerable.Range(0, 20).Select(index => random.Next(-10000, 10000)).ToArray();
+            var arrayToSort = Enumerable.Range(0, 100).Select(index => random.Next(-10000, 10000)).ToArray();
 
-            RadixSort.GetSorted(arrayToSort);
+            int[] sortedArray = RadixSort.GetSorted(arrayToSort);
 
+            Console.WriteLine(String.Join('\n', sortedArray));
         }
     }
 }

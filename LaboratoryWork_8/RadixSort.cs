@@ -14,12 +14,21 @@ namespace LaboratoryWork_8
         {
             int[] result = new int[array.Length];
 
-            int[] positiveValues = array.Where(value => value > 0).ToArray();
+            int[] positiveValues = array.Where(value => value >= 0).ToArray();
             int[] negativeValues = array.Where(value => value < 0).ToArray();
 
-            GetSortedSignedArray(positiveValues, 1);
-            GetSortedSignedArray(negativeValues, -1);
+            int[] sortedPositive = GetSortedSignedArray(positiveValues, 1);
+            int[] sortedNegative = GetSortedSignedArray(negativeValues, -1);
 
+            for(int i = 0; i < sortedNegative.Length; i++)
+            {
+                result[i] = sortedNegative[sortedNegative.Length - 1 - i];
+            }
+
+            for(int i = 0; i < sortedPositive.Length; i++)
+            {
+                result[i + sortedNegative.Length] = sortedPositive[i];
+            }
 
             return result;
         }
@@ -30,20 +39,20 @@ namespace LaboratoryWork_8
             int digitsCount = GetMaxDigitsCount(array, sign);
             for (int currentDigit = 0; currentDigit < digitsCount; currentDigit++)
             {
-                result = GetSortedByCounting(result, SortingBase, currentDigit);
+                result = GetSortedByCounting(result, SortingBase, currentDigit, sign);
             }
 
           
             return result;
         }
-        private static int[] GetSortedByCounting(int[] array, int sortingBase, int position)
+        private static int[] GetSortedByCounting(int[] array, int sortingBase, int position, int sign = 1)
         {
             int[] result = new int[array.Length];
 
             int[] valuesCount = new int[sortingBase];
             foreach(int value in array)
             {
-                int digit = GetDigitFromTheEnd(value, position);
+                int digit = GetDigitFromTheEnd(sign * value, position);
                 valuesCount[digit]++;
             }
 
@@ -51,8 +60,14 @@ namespace LaboratoryWork_8
             {
                 valuesCount[i] += valuesCount[i - 1];
             }
-
-
+            
+            for(int i = array.Length - 1; i >= 0; i--)
+            {
+                int element = array[i] * sign;
+                int digit = GetDigitFromTheEnd(element, position);
+                result[valuesCount[digit] - 1] = element * sign;
+                valuesCount[digit]--;
+            }
 
 
 
