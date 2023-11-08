@@ -23,6 +23,29 @@
             Value = item;
         }
 
+        public List<T> NonrecursiveTraverse()
+        {
+            List<T> result = new List<T>();
+            Stack<BinaryTreeNode<T>> stack = new Stack<BinaryTreeNode<T>>();
+            BinaryTreeNode<T> currentNode = this;
+
+            while(currentNode != null || stack.Count > 0)
+            {
+                while(currentNode != null)
+                {
+                    stack.Push(currentNode);
+                    currentNode = currentNode.Left;
+                }
+                currentNode = stack.Pop();
+                result.Add(currentNode.Value);
+
+                currentNode = currentNode.Right;
+            }
+
+            return result;
+        }
+
+
         public List<T> TraverseTree(TreeTraverseTypes traverseType)
         {
             List<T> result = new List<T>();
