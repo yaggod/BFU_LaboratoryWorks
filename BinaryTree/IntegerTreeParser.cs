@@ -45,7 +45,6 @@ namespace BinaryTree
             return treeRoot;
         }
 
-
         private static int GetSeparatorIndex(string expression)
         {
             int openedBracketsCount = 0;
