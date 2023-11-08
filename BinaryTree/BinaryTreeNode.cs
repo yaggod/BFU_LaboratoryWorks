@@ -43,6 +43,7 @@
             }
 
             return result;
+            // TODO: Сделать прямой обход вместо центрального
         }
 
 
@@ -88,6 +89,11 @@
             destination.Add(Value);
         }
 
-
+        public override string ToString()
+        {
+            if (Left == null && Right == null)
+                return Value.ToString();
+            return $"{Value}({Left},{Right})";
+        }
     }
 }
