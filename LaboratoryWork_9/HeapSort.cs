@@ -8,20 +8,40 @@ namespace LaboratoryWork_9
 {
     internal class HeapSort
     {
-        public static T[] GetSorted<T>(T[] values) where T : IComparable<T>
+        public static void Sort<T>(T[] values) where T : IComparable<T>
         {
-            List<T> result = new List<T>();
-            if (values.Length > 0)
+            int heapSize = values.Length;
+            for(int i = heapSize / 2 - 1; i > 0; i--)
             {
-                HeapNode<T> heap = new HeapNode<T>(values[0]);
-                for (int i = 1; i < values.Length; i++)
-                {
-                    heap.AddValue(values[i]);
-                }
-                heap.FillListSorted(result);
+                Heapify(values, heapSize, i);
             }
 
-            return result.ToArray();
+            for (int i = heapSize; i > 0; i--)
+            {
+                Heapify(values, i, 0);
+                (values[i - 1], values[0]) = (values[0], values[i-1]);
+            }
+        }
+
+        private static void Heapify<T>(T[] values, int heapSize, int currentIndex) where T : IComparable<T>
+        {
+            int largestValueIndex = currentIndex;
+
+            int leftIndex = 2 * currentIndex + 1;
+            int rightIndex = 2 * currentIndex + 2;
+
+            if (leftIndex < heapSize && values[leftIndex].CompareTo(values[largestValueIndex]) > 0)
+                largestValueIndex = leftIndex;
+
+
+            if (rightIndex < heapSize && values[rightIndex].CompareTo(values[largestValueIndex]) > 0)
+                largestValueIndex = rightIndex;
+
+            if (largestValueIndex != currentIndex)
+            {
+                (values[largestValueIndex], values[currentIndex]) = (values[currentIndex], values[largestValueIndex]);    
+                Heapify(values, heapSize, largestValueIndex);
+            }
         }
     }
 }

@@ -6,11 +6,11 @@
         {
             Random random = new Random();
 
-            var arrayToSort = Enumerable.Range(0, 100).Select(index => random.Next(-10000, 10000)).ToArray();
+            var arrayToSort = Enumerable.Range(0, 20).Select(index => random.Next(-10000, 10000)).ToArray();
 
-            int[] result = HeapSort.GetSorted(arrayToSort);
+            HeapSort.Sort(arrayToSort);
 
-            Console.WriteLine(String.Join('\n', result));
+            Console.WriteLine(String.Join('\n', arrayToSort));
 
 
         }
