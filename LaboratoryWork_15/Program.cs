@@ -10,6 +10,13 @@ namespace LaboratoryWork_15
             
             var tree = IntegerTreeParser.GetTreeFromString(expression);
 
+            List<int> inorderTraverseList = tree.TraverseTree(TreeTraverseTypes.Inorder);
+            List<int> postorderTraverseList = tree.TraverseTree(TreeTraverseTypes.Postorder);
+            List<int> preorderTraverseList = tree.TraverseTree(TreeTraverseTypes.Preorder);
+
+            Console.WriteLine("Центральный\t" + String.Join(' ', inorderTraverseList));
+            Console.WriteLine("Концевой\t" + String.Join(' ', postorderTraverseList));
+            Console.WriteLine("Прямой\t\t"  + String.Join(' ', preorderTraverseList));
         }
     }
 }
