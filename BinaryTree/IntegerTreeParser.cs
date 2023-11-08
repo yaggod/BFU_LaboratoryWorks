@@ -45,16 +45,6 @@ namespace BinaryTree
             return treeRoot;
         }
 
-        private static string GetLeftSubtreeSubstring(string expression)
-        {
-            GetSeparatorIndex(expression);
-            return string.Empty;
-        }
-
-        private static string GetRightSubtreeSubstring(string expression)
-        {
-            return string.Empty;
-        }
 
         private static int GetSeparatorIndex(string expression)
         {
