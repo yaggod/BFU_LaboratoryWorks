@@ -10,7 +10,7 @@ namespace LaboratoryWork_14
 
         static void Main(string[] args)
         {
-            HashTable<string> hashTable = InitializeHashTable();
+            HashTable<string> hashTable = GetInitializedHashTable();
 
             IEnumerable<string> tableRows = Enumerable.Range(0, HashBase).Select(hash => hash + "\t|\t" + String.Join(' ', hashTable.GetElementsWithHash(hash) ?? new()));
 
@@ -28,7 +28,7 @@ namespace LaboratoryWork_14
 
         }
 
-        private static HashTable<string> InitializeHashTable()
+        private static HashTable<string> GetInitializedHashTable()
         {
             string input = File.ReadAllText("input.txt", System.Text.Encoding.UTF8);
             string[] words = input.Split( new[] { '\n', ' '}, StringSplitOptions.RemoveEmptyEntries | StringSplitOptions.TrimEntries);
