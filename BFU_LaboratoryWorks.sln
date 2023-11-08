@@ -29,6 +29,10 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "LaboratoryWork_14", "Labora
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "LaboratoryWork_13", "LaboratoryWork_13\LaboratoryWork_13.csproj", "{7725702D-77F6-4162-B796-5D733E22F235}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "LaboratoryWork_15", "LaboratoryWork_15\LaboratoryWork_15.csproj", "{76E55EE1-0D73-43DD-9DF3-708B0A096D2D}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "BinaryTree", "BinaryTree\BinaryTree.csproj", "{A8A4B2D7-A769-4B85-BFDC-AC415E94669E}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -87,6 +91,14 @@ Global
 		{7725702D-77F6-4162-B796-5D733E22F235}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{7725702D-77F6-4162-B796-5D733E22F235}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{7725702D-77F6-4162-B796-5D733E22F235}.Release|Any CPU.Build.0 = Release|Any CPU
+		{76E55EE1-0D73-43DD-9DF3-708B0A096D2D}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{76E55EE1-0D73-43DD-9DF3-708B0A096D2D}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{76E55EE1-0D73-43DD-9DF3-708B0A096D2D}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{76E55EE1-0D73-43DD-9DF3-708B0A096D2D}.Release|Any CPU.Build.0 = Release|Any CPU
+		{A8A4B2D7-A769-4B85-BFDC-AC415E94669E}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{A8A4B2D7-A769-4B85-BFDC-AC415E94669E}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{A8A4B2D7-A769-4B85-BFDC-AC415E94669E}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{A8A4B2D7-A769-4B85-BFDC-AC415E94669E}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
