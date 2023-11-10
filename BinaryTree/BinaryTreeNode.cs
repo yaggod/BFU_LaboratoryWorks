@@ -33,11 +33,11 @@
             {
                 while(currentNode != null)
                 {
+                    result.Add(currentNode.Value);
                     stack.Push(currentNode);
                     currentNode = currentNode.Left;
                 }
                 currentNode = stack.Pop();
-                result.Add(currentNode.Value);
 
                 currentNode = currentNode.Right;
             }
