@@ -90,9 +90,16 @@ namespace LaboratoryWork_17
             throw new NotImplementedException();
         }
 
-        public void Find(T item)
+        public BinarySearchTreeNode<T>? Find(T item)
         {
-            throw new NotImplementedException();
+            if (this.Value.Equals(item))
+                return this;
+
+            if (item.CompareTo(this.Value) < 0)
+                return Left?.Find(item);
+            else
+                return Right?.Find(item);
+
         }
     }
 }
