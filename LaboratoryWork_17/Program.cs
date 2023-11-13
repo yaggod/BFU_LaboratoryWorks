@@ -6,10 +6,9 @@ namespace LaboratoryWork_17
     {
         static void Main(string[] args)
         {
-            string expression = "8(3(1, 6(4, 7)), 10(, 14(13,)))";
-            var tree = IntegerTreeParser.GetTreeFromString(expression);
-
-            Console.WriteLine(tree.ToString());
+            string expression = "8(9(1, 6(4, 7)), 10(, 14(13,)))";
+            var regularTree = IntegerTreeParser.GetTreeFromString(expression);
+            var binarySearchTree = BinarySearchTreeNode<int>.FromBinaryTree(regularTree);
         }
     }
 }
