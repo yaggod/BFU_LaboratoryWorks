@@ -53,5 +53,46 @@ namespace LaboratoryWork_17
 
             return result;
         }
+
+        public void Add(T item)
+        {
+            if (item.CompareTo(this.Value) < 0)
+            {
+                if (Left != null)
+                    Left.Add(item);
+                else
+                    Left = new(item);
+            }
+            else
+            {
+                if (Right != null)
+                    Right.Add(item);
+                else
+                    Right = new(item);
+            }
+        }
+
+        public void Remove(T item)
+        {
+            if (this.Value.Equals(item))
+                RecalculateTree(this);
+            else
+            {
+                if (item.CompareTo(this.Value) < 0)
+                    Left?.Remove(item);
+                else
+                    Right?.Remove(item);
+            }
+        }
+
+        private static void RecalculateTree(BinarySearchTreeNode<T> node)
+        {
+            throw new NotImplementedException();
+        }
+
+        public void Find(T item)
+        {
+            throw new NotImplementedException();
+        }
     }
 }
