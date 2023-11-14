@@ -27,7 +27,7 @@
         {
             List<T> result = new List<T>();
             Stack<BinaryTreeNode<T>> stack = new Stack<BinaryTreeNode<T>>();
-            BinaryTreeNode<T> currentNode = this;
+            BinaryTreeNode<T>? currentNode = this;
 
             while(currentNode != null || stack.Count > 0)
             {
@@ -43,7 +43,6 @@
             }
 
             return result;
-            // TODO: Сделать прямой обход вместо центрального
         }
 
 

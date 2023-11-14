@@ -54,8 +54,14 @@
             FileStream destinationFile = outputFileWriter;
             for(int sortedArraysSize = bufferSize; sortedArraysSize < inputFileReader.Length; sortedArraysSize *= 2)
             {
-            
+                // TODO
             }
+        }
+
+        private void Merge(FileStream source, FileStream destination, int sortedArraysSize)
+        {
+            throw new NotImplementedException();
+            // TODO
         }
         
     }
