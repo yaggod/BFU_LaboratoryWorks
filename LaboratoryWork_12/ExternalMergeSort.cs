@@ -7,52 +7,57 @@ namespace LaboratoryWork_12
         private readonly int bufferSize;
 
         private readonly FileStream inputFileReader;
-        private readonly FileStream tempFileWriter;
-        private readonly FileStream outputFileWriter;
+        private readonly string outputFilePath;
+        private FileStream firstTempFileWriterReader;
+        private FileStream secondTempFileWriterReader;
 
 
         public ExternalMergeSort(string inputFilePath, string outputFilePath, int bufferSize)
         {
             this.bufferSize = bufferSize;
+            this.outputFilePath = outputFilePath;
 
-            using (inputFileReader = File.OpenRead(inputFilePath))
-            {
-                using (tempFileWriter = File.Create(inputFilePath + "_TEMP"))
-                {
-                    using(outputFileWriter = File.Create(outputFilePath))
-                    {
-                        Sort();
-                    }
-                }
-            }
+            inputFileReader = File.OpenRead(inputFilePath);
+            firstTempFileWriterReader = File.Create(inputFilePath + "_TEMP1");
+            secondTempFileWriterReader = File.Create(inputFilePath + "_TEMP2");
+
+            Sort();
+
+            inputFileReader.Dispose();
+            firstTempFileWriterReader.Dispose();
+            secondTempFileWriterReader.Dispose();
+
+            CleanFiles();
+
         }
 
         private void Sort()
         {
             SplitIntoParts();
+            MergeParts();
         }
 
         private void SplitIntoParts()
         {
-            BinaryReader reader = new BinaryReader(inputFileReader);
-            BinaryWriter writer = new BinaryWriter(tempFileWriter);
-            for(int offset = 0; offset < inputFileReader.Length; offset += bufferSize)
+            BinaryReader reader = new(inputFileReader);
+            BinaryWriter writer = new(firstTempFileWriterReader);
+            for (int offset = 0; offset < inputFileReader.Length / 4; offset += bufferSize)
             {
                 int[] buffer = new int[bufferSize];
 
 
                 int realBufferSize;
-                for(realBufferSize = 0; realBufferSize < bufferSize; realBufferSize++)
+                for (realBufferSize = 0; realBufferSize < bufferSize; realBufferSize++)
                 {
-                    buffer[realBufferSize] = reader.ReadInt32();
-                    if (writer.BaseStream.Position == writer.BaseStream.Length)
+                    if (reader.BaseStream.Position >= reader.BaseStream.Length)
                         break;
+                    buffer[realBufferSize] = reader.ReadInt32();
                 }
 
-                if(realBufferSize != bufferSize)
+                if (realBufferSize != bufferSize)
                 {
                     int[] tempBuffer = new int[realBufferSize];
-                    for(int i = 0; i < tempBuffer.Length; i++)
+                    for (int i = 0; i < tempBuffer.Length; i++)
                     {
                         tempBuffer[i] = buffer[i];
                     }
@@ -61,17 +66,88 @@ namespace LaboratoryWork_12
                 }
 
                 Array.Sort(buffer);
-                foreach(int element in buffer)
+                foreach (int element in buffer)
                 {
                     writer.Write(element);
                 }
             }
 
-            reader.Dispose();
-            writer.Dispose();
         }
 
-        
-        
+
+        private void MergeParts()
+        {
+            for (int sortedArraysSize = bufferSize; sortedArraysSize < inputFileReader.Length / 4; sortedArraysSize *= 2)
+            {
+                MergeParts(sortedArraysSize);
+                (firstTempFileWriterReader, secondTempFileWriterReader) = (secondTempFileWriterReader, firstTempFileWriterReader);
+            }
+        }
+
+        private void MergeParts(int arraysSize)
+        {
+            BinaryReader binaryReader = new BinaryReader(firstTempFileWriterReader);
+            BinaryWriter binaryWriter = new BinaryWriter(secondTempFileWriterReader);
+            binaryWriter.BaseStream.Position = 0;
+
+            for (int offset = 0; offset < inputFileReader.Length / 4 - arraysSize; offset += 2 * arraysSize)
+            {
+                MergeParts(binaryReader, binaryWriter, offset, arraysSize);
+            }
+        }
+
+        private void MergeParts(BinaryReader reader, BinaryWriter writer, int offset, int arraysSize)
+        {
+            int totalLengthLeft = (int)reader.BaseStream.Length / 4 - offset;
+            int leftPartSize = Math.Min(arraysSize, totalLengthLeft);
+            int rightPartSize = Math.Min(totalLengthLeft, 2 * arraysSize) - leftPartSize;
+
+            int leftIndex = offset;
+            int rightIndex = offset + leftPartSize;
+            while (leftIndex + rightIndex < 2 * leftPartSize + rightPartSize + 2 * offset)
+            {
+                int minValue;
+                if (leftIndex - offset >= leftPartSize)
+                {
+                    reader.BaseStream.Position = rightIndex * 4;
+                    minValue = reader.ReadInt32();
+                    rightIndex++;
+                }
+                else if (rightIndex - offset - leftPartSize >= rightPartSize)
+                {
+                    reader.BaseStream.Position = leftIndex * 4;
+                    minValue = reader.ReadInt32();
+                    leftIndex++;
+                }
+                else
+                {
+                    reader.BaseStream.Position = leftIndex * 4;
+                    int leftValue = reader.ReadInt32();
+                    reader.BaseStream.Position = rightIndex * 4;
+                    int rightValue = reader.ReadInt32();
+                    if (leftValue < rightValue)
+                    {
+                        minValue = leftValue;
+                        leftIndex++;
+                    }
+                    else
+                    {
+                        minValue = rightValue;
+                        rightIndex++;
+                    }
+                }
+                writer.Write(minValue);
+            }
+
+
+        }
+
+        private void CleanFiles()
+        {
+            File.Delete(outputFilePath);
+            System.IO.File.Move(firstTempFileWriterReader.Name, outputFilePath);
+            File.Delete(secondTempFileWriterReader.Name);
+        }
+
     }
 }
