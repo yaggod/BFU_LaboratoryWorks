@@ -4,7 +4,7 @@
     {
         static void Main(string[] args)
         {
-            ExternalHeapSort heapSorter = new ExternalHeapSort("input.txt", 32);
+            ExternalMergeSort heapSorter = new ExternalHeapSort("input.txt", 32);
         }
     }
 }
