@@ -105,7 +105,7 @@ namespace LaboratoryWork_17
                 return;
             }
 
-            node.Value = newElements.ElementAt(0);
+            node.Value = newElements.ElementAt(0);      
             for (int i = 1; i < newElements.Count(); i++)
                 node.Add(newElements.ElementAt(i));
 

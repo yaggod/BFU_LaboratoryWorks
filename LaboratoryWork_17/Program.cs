@@ -47,7 +47,7 @@ namespace LaboratoryWork_17
             {
                 Console.WriteLine(exception.Message);
             }
-            Console.WriteLine("\n\n\n");
+            Console.WriteLine("\n");
 
 
         }
