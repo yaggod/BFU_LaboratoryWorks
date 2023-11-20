@@ -27,7 +27,15 @@
 
         private void Sort()
         {
-            
+            SplitIntoParts();
+        }
+
+        private void SplitIntoParts()
+        {
+            for(int offset = 0; offset < inputFileReader.Length; offset += bufferSize)
+            {
+
+            }
         }
 
         
