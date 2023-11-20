@@ -39,11 +39,9 @@
                 lastValue = reader.ReadInt32();
                 while(reader.BaseStream.Position < reader.BaseStream.Length)
                 {
-                    counter++;
                     int newValue = reader.ReadInt32();
                     if(newValue < lastValue)
                     {
-                        Console.WriteLine(counter);
                         return false;
                     }
                     lastValue = newValue;
