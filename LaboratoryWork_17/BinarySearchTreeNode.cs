@@ -96,7 +96,6 @@ namespace LaboratoryWork_17
         {
             List<T> newElements = node.TraverseTree(TreeTraverseTypes.Preorder).ToList();
             newElements.RemoveAt(0);
-            newElements.Sort();
 
             node.Left = null;
             node.Right = null;
