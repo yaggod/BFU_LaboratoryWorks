@@ -19,11 +19,11 @@ namespace LaboratoryWork_10
             if (from == to)
                 return new T[] { array[from] };
             T[] leftPart = GetSorted(array, from, middle);
-            T[] rightPlay = GetSorted(array, middle + 1, to);
+            T[] rightPart = GetSorted(array, middle + 1, to);
 
 
 
-            T[] newArray = new T[leftPart.Length + rightPlay.Length];
+            T[] newArray = new T[leftPart.Length + rightPart.Length];
 
             int leftIndex = 0;
             int rightIndex = 0;
@@ -32,16 +32,16 @@ namespace LaboratoryWork_10
                 T minValue;
                 if(!(leftIndex < leftPart.Length))
                 {
-                    minValue = rightPlay[rightIndex++];
+                    minValue = rightPart[rightIndex++];
                 }
-                else if(!(rightIndex < rightPlay.Length))
+                else if(!(rightIndex < rightPart.Length))
                 {
                     minValue = leftPart[leftIndex++];
                 }
                 else
                 {
                     T leftValue = leftPart[leftIndex];
-                    T rightValue = rightPlay[rightIndex];
+                    T rightValue = rightPart[rightIndex];
                     if (leftValue.CompareTo(rightValue) < 0)
                     {
                         minValue = leftValue;
