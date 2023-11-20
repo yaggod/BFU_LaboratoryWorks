@@ -17,7 +17,7 @@ namespace LaboratoryWork_17
         private static void InitializeTree()
         {
             Console.WriteLine("Input your tree: ");
-            string treeExpression = Console.ReadLine() ?? "";
+            string treeExpression = ExampleTreeExpression;//Console.ReadLine() ?? "";
             var regularTree = IntegerTreeParser.GetTreeFromString(treeExpression);
             _tree = BinarySearchTreeNode<int>.FromBinaryTree(regularTree);
 

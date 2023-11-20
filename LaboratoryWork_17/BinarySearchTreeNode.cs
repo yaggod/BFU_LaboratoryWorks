@@ -13,6 +13,7 @@ namespace LaboratoryWork_17
         private BinaryTreeNode<T>? _left;
         private BinaryTreeNode<T>? _right;
 
+        private bool _isEmpty = false;
         public override BinaryTreeNode<T>? Left
         {
             get => _left;
@@ -36,7 +37,7 @@ namespace LaboratoryWork_17
 
         public BinarySearchTreeNode(T item) : base(item)
         {
-            
+
         }
 
         public static BinarySearchTreeNode<T>? FromBinaryTree(BinaryTreeNode<T>? binaryTree)
@@ -71,14 +72,24 @@ namespace LaboratoryWork_17
         public void Remove(T item)
         {
             if (this.Value.Equals(item))
+            {
                 RecalculateTree(this);
+            }
             else
             {
                 if (item.CompareTo(this.Value) < 0)
                     (Left as BinarySearchTreeNode<T>)?.Remove(item);
                 else
                     (Right as BinarySearchTreeNode<T>)?.Remove(item);
+
+
+                if ((Left as BinarySearchTreeNode<T>)?._isEmpty == true)
+                    Left = null;
+                if ((Right as BinarySearchTreeNode<T>)?._isEmpty == true)
+                    Right = null;
+
             }
+
         }
 
         private static void RecalculateTree(BinarySearchTreeNode<T> node)
@@ -89,13 +100,16 @@ namespace LaboratoryWork_17
 
             node.Left = null;
             node.Right = null;
-            if (newElements.Count > 0)
+            if(newElements.Count == 0)
             {
-                node.Value = newElements.ElementAt(0);
-                for (int i = 1; i < newElements.Count(); i++)
-                    node.Add(newElements.ElementAt(i));
+                node._isEmpty = true;
+                return;
             }
-                
+
+            node.Value = newElements.ElementAt(0);
+            for (int i = 1; i < newElements.Count(); i++)
+                node.Add(newElements.ElementAt(i));
+
         }
 
         public BinarySearchTreeNode<T>? Find(T item)
