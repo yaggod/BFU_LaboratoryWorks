@@ -2,35 +2,31 @@
 using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Runtime.CompilerServices;
 using System.Text;
 using System.Threading.Tasks;
 
 namespace LaboratoryWork_17
 {
-    internal class BinarySearchTreeNode<T> where T : IComparable<T>
+    internal class BinarySearchTreeNode<T> : BinaryTreeNode<T> where T : IComparable<T>
     {
-        private BinarySearchTreeNode<T>? _left;
-        private BinarySearchTreeNode<T>? _right;
+        private BinaryTreeNode<T>? _left;
+        private BinaryTreeNode<T>? _right;
 
-        public T Value
-        {
-            get;
-            set;
-        }
-        public BinarySearchTreeNode<T>? Left
+        public override BinaryTreeNode<T>? Left
         {
             get => _left;
-            private set
+            set
             {
                 if (value != null && value.Value.CompareTo(this.Value) > 0)
                     throw new InvalidOperationException();
                 _left = value;
             }
         }
-        public BinarySearchTreeNode<T>? Right
+        public override BinaryTreeNode<T>? Right
         {
             get => _right;
-            private set
+            set
             {
                 if (value != null && value.Value.CompareTo(this.Value) < 0)
                     throw new InvalidOperationException();
@@ -38,9 +34,9 @@ namespace LaboratoryWork_17
             }
         }
 
-        public BinarySearchTreeNode(T item)
+        public BinarySearchTreeNode(T item) : base(item)
         {
-            Value = item;
+            
         }
 
         public static BinarySearchTreeNode<T>? FromBinaryTree(BinaryTreeNode<T>? binaryTree)
@@ -59,16 +55,16 @@ namespace LaboratoryWork_17
             if (item.CompareTo(this.Value) < 0)
             {
                 if (Left != null)
-                    Left.Add(item);
+                    (Left as BinarySearchTreeNode<T>)?.Add(item);
                 else
-                    Left = new(item);
+                    Left = new BinarySearchTreeNode<T>(item);
             }
             else
             {
                 if (Right != null)
-                    Right.Add(item);
+                    (Right as BinarySearchTreeNode<T>)?.Add(item);
                 else
-                    Right = new(item);
+                    Right = new BinarySearchTreeNode<T>(item);
             }
         }
 
@@ -79,15 +75,27 @@ namespace LaboratoryWork_17
             else
             {
                 if (item.CompareTo(this.Value) < 0)
-                    Left?.Remove(item);
+                    (Left as BinarySearchTreeNode<T>)?.Remove(item);
                 else
-                    Right?.Remove(item);
+                    (Right as BinarySearchTreeNode<T>)?.Remove(item);
             }
         }
 
         private static void RecalculateTree(BinarySearchTreeNode<T> node)
         {
-            throw new NotImplementedException();
+            List<T> newElements = node.TraverseTree(TreeTraverseTypes.Preorder).ToList();
+            newElements.RemoveAt(0);
+            newElements.Sort();
+
+            node.Left = null;
+            node.Right = null;
+            if (newElements.Count > 0)
+            {
+                node.Value = newElements.ElementAt(0);
+                for (int i = 1; i < newElements.Count(); i++)
+                    node.Add(newElements.ElementAt(i));
+            }
+                
         }
 
         public BinarySearchTreeNode<T>? Find(T item)
@@ -96,9 +104,9 @@ namespace LaboratoryWork_17
                 return this;
 
             if (item.CompareTo(this.Value) < 0)
-                return Left?.Find(item);
+                return (Left as BinarySearchTreeNode<T>)?.Find(item);
             else
-                return Right?.Find(item);
+                return (Right as BinarySearchTreeNode<T>)?.Find(item);
 
         }
     }

@@ -5,6 +5,7 @@ namespace LaboratoryWork_17
 {
     internal class Program
     {
+        private const string ExampleTreeExpression = "8(3(1, 6(4, 7)), 10(, 14(13,)))";
         private static BinarySearchTreeNode<int>? _tree;
         static void Main(string[] args)
         {
@@ -15,9 +16,12 @@ namespace LaboratoryWork_17
 
         private static void InitializeTree()
         {
-            string expression = "8(3(1, 6(4, 7)), 10(, 14(13,)))";
-            var regularTree = IntegerTreeParser.GetTreeFromString(expression);
+            Console.WriteLine("Input your tree: ");
+            string treeExpression = Console.ReadLine() ?? "";
+            var regularTree = IntegerTreeParser.GetTreeFromString(treeExpression);
             _tree = BinarySearchTreeNode<int>.FromBinaryTree(regularTree);
+
+
         }
 
 
@@ -35,9 +39,9 @@ namespace LaboratoryWork_17
             string userInput = Console.ReadLine();
             try
             {
-                object result = ExecuteUserTask(userInput);
+                BinarySearchTreeNode<int> result = ExecuteUserTask(userInput);
                 if (result != null)
-                    Console.WriteLine(result);
+                    Console.WriteLine("\t" + result);
             }
             catch(Exception exception)
             {
@@ -49,33 +53,32 @@ namespace LaboratoryWork_17
         }
         private static void ShowMenu()
         {
-            Console.WriteLine("1: Add element");
-            Console.WriteLine("2: Remove element");
-            Console.WriteLine("3: Find element");
-            Console.WriteLine("4: Exit");
+            Console.WriteLine("1 [V]: Add element");
+            Console.WriteLine("2 [V]: Remove element");
+            Console.WriteLine("3 [V]: Find element");
         }
 
-        private static object? ExecuteUserTask(string input)
+        private static BinarySearchTreeNode<int>? ExecuteUserTask(string input)
         {
             try
             {
                 var parameters = input.Split(' ', StringSplitOptions.RemoveEmptyEntries | StringSplitOptions.TrimEntries);
                 int operationId = Int32.Parse(parameters[0]);
-                int argument = Int32.Parse(parameters[1]); // TODO: fix exiting incorrect handling
+
+
+                int argument = Int32.Parse(parameters[1]);
 
                 switch (operationId)
                 {
                     case 1:
                          _tree?.Add(argument);
-                        return null;
+                        return _tree;
                     case 2:
                          _tree?.Remove(argument);
-                        return null;
-                    case 3:
-                        BinarySearchTreeNode<int> foundSubtree = _tree.Find(argument);
-                        return foundSubtree;
-                    case 4:
                         return _tree;
+                    case 3:
+                        BinarySearchTreeNode<int>? foundSubtree = _tree?.Find(argument);
+                        return foundSubtree;
                     default:
                         throw new InvalidOperationException($"{nameof(operationId)} can not be {operationId}");
                 }

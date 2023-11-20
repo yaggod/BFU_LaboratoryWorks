@@ -7,12 +7,12 @@
             get; 
             set;
         }
-        public BinaryTreeNode<T>? Left
+        public virtual BinaryTreeNode<T>? Left
         {
             get;
             set;
         }
-        public BinaryTreeNode<T>? Right
+        public virtual BinaryTreeNode<T>? Right
         {
             get;
             set;
